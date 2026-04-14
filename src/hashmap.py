@@ -5,7 +5,7 @@ Supports: insert, search, delete.
 Automatically resizes (doubles capacity) when load factor exceeds 0.7.
 """
 
-_DELETED = object()   # sentinel for deleted slots
+_DELETED = object()  
 
 
 class HashMap:
@@ -21,13 +21,10 @@ class HashMap:
 
     def __init__(self):
         self._capacity: int = self._INITIAL_CAPACITY
-        self._size: int = 0                          # live entries
+        self._size: int = 0                          
         self._buckets: list = [None] * self._capacity
 
-    # ------------------------------------------------------------------
-    # Public interface
-    # ------------------------------------------------------------------
-
+  
     def insert(self, key: str, value) -> None:
         """Insert or update key→value. Resizes if load factor > 0.7."""
         if self._load_factor() > self._LOAD_FACTOR_THRESHOLD:
@@ -71,9 +68,7 @@ class HashMap:
     def __contains__(self, key: str) -> bool:
         return self._find(key) is not None
 
-    # ------------------------------------------------------------------
-    # Internal helpers
-    # ------------------------------------------------------------------
+   
 
     def _hash(self, key: str) -> int:
         """Polynomial rolling hash mapped into current capacity."""
@@ -100,7 +95,7 @@ class HashMap:
             elif slot[0] == key:
                 return idx
             idx = (idx + 1) % self._capacity
-        return first_deleted  # map is full (shouldn't happen with resize)
+        return first_deleted  
 
     def _find(self, key: str):
         """
