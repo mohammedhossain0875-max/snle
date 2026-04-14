@@ -12,22 +12,19 @@ Features
 from heap import MinHeap
 
 
-# Node colour constants for cycle detection
-WHITE = 0   # undiscovered
-GRAY  = 1   # in the current DFS stack (being processed)
-BLACK = 2   # fully processed
+
+WHITE = 0  
+GRAY  = 1   
+BLACK = 2   
 
 
 class Graph:
     """Weighted directed graph using an adjacency list (dict of lists)."""
 
     def __init__(self):
-        # adj[node] = [(neighbour, weight), ...]
         self._adj: dict[str, list[tuple[str, int]]] = {}
 
-    # ------------------------------------------------------------------
-    # Construction
-    # ------------------------------------------------------------------
+  
 
     def add_node(self, name: str) -> None:
         """Ensure *name* exists in the adjacency list (no duplicate edges)."""
@@ -52,9 +49,6 @@ class Graph:
         for src, dst, weight in edges:
             self.add_edge(src, dst, weight)
 
-    # ------------------------------------------------------------------
-    # Accessors
-    # ------------------------------------------------------------------
 
     def nodes(self) -> list[str]:
         return list(self._adj.keys())
@@ -62,10 +56,7 @@ class Graph:
     def neighbours(self, node: str) -> list[tuple[str, int]]:
         return self._adj.get(node, [])
 
-    # ------------------------------------------------------------------
-    # Dijkstra's algorithm
-    # ------------------------------------------------------------------
-
+   
     def dijkstra(self, source: str) -> tuple[dict, dict]:
         """
         Compute shortest distances from *source* to every reachable node.
@@ -117,7 +108,7 @@ class Graph:
         if dist[target] == float("inf"):
             return [], float("inf")
 
-        # Reconstruct path by walking back through predecessors
+      
         path: list[str] = []
         node: str | None = target
         while node is not None:
@@ -126,9 +117,6 @@ class Graph:
         path.reverse()
         return path, dist[target]
 
-    # ------------------------------------------------------------------
-    # Cycle detection  (DFS / WHITE-GRAY-BLACK)
-    # ------------------------------------------------------------------
 
     def detect_cycles(self) -> tuple[bool, list[str]]:
         """
@@ -143,13 +131,13 @@ class Graph:
         """
         colour: dict[str, int] = {n: WHITE for n in self._adj}
         parent: dict[str, str | None] = {n: None for n in self._adj}
-        cycle_info: list = []   # mutable container so nested fn can write
+        cycle_info: list = []  
 
         def dfs(u: str) -> bool:
             colour[u] = GRAY
             for v, _ in self._adj[u]:
                 if colour[v] == GRAY:
-                    # Back edge found → cycle exists; reconstruct it
+                   
                     cycle: list[str] = [v, u]
                     node = u
                     while parent[node] != v and parent[node] is not None:
@@ -173,9 +161,7 @@ class Graph:
 
         return False, []
 
-    # ------------------------------------------------------------------
-    # Display
-    # ------------------------------------------------------------------
+   
 
     def display_summary(self) -> None:
         """Print a formatted summary of nodes and adjacency list."""
