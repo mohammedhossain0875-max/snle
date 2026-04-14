@@ -8,7 +8,7 @@ Entry point: python src/main.py
 import os
 import sys
 
-# Allow sibling imports when running as  python src/main.py
+
 sys.path.insert(0, os.path.dirname(__file__))
 
 from graph import Graph
@@ -18,38 +18,33 @@ from trie import Trie
 from utils import load_network
 
 
-# ---------------------------------------------------------------------------
-# Paths
-# ---------------------------------------------------------------------------
+
 
 _HERE = os.path.dirname(__file__)
 _DATA_FILE = os.path.join(_HERE, "..", "data", "network.txt")
 
 
-# ---------------------------------------------------------------------------
-# Initialisation
-# ---------------------------------------------------------------------------
 
 def initialise(filepath: str):
     """Load the network file and build all data structures."""
     nodes, edges, packages = load_network(filepath)
 
-    # --- Graph -----------------------------------------------------------
+   
     graph = Graph()
     graph.build_from_edges(nodes, edges)
 
-    # --- Priority Dispatch Queue (MaxHeap) --------------------------------
+    
     dispatch_queue = MaxHeap()
     for pkg in packages:
         dispatch_queue.enqueue(pkg)
 
-    # --- Depot HashMap ---------------------------------------------------
+   
     depot_map = HashMap()
     for node in nodes:
-        # Store the node's adjacency list size as a simple metadata value
+       
         depot_map.insert(node, node)
 
-    # --- Trie for autocomplete -------------------------------------------
+   
     trie = Trie()
     for node in nodes:
         trie.insert(node)
@@ -57,9 +52,7 @@ def initialise(filepath: str):
     return graph, dispatch_queue, depot_map, trie, nodes
 
 
-# ---------------------------------------------------------------------------
-# Menu handlers
-# ---------------------------------------------------------------------------
+
 
 def show_network_summary(graph: Graph) -> None:
     print("\n--- Network Summary ---")
@@ -134,9 +127,7 @@ def autocomplete_depot(trie: Trie) -> None:
         print(f"  No depots found with prefix '{prefix}'.")
 
 
-# ---------------------------------------------------------------------------
-# Main loop
-# ---------------------------------------------------------------------------
+
 
 MENU = """\
 ===== Smart Network Logistics Engine =====
