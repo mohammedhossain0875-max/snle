@@ -23,9 +23,7 @@ class Trie:
     def __init__(self):
         self._root = _TrieNode()
 
-    # ------------------------------------------------------------------
-    # Mutation
-    # ------------------------------------------------------------------
+  
 
     def insert(self, word: str) -> None:
         """Insert *word* into the trie."""
@@ -36,9 +34,7 @@ class Trie:
             node = node.children[ch]
         node.is_end = True
 
-    # ------------------------------------------------------------------
-    # Queries
-    # ------------------------------------------------------------------
+    
 
     def search(self, word: str) -> bool:
         """Return True iff *word* was inserted exactly."""
@@ -61,9 +57,7 @@ class Trie:
         self._collect(node, list(prefix), results)
         return sorted(results)
 
-    # ------------------------------------------------------------------
-    # Internal helpers
-    # ------------------------------------------------------------------
+ 
 
     def _find_node(self, prefix: str):
         """Walk down the trie following *prefix*; return final node or None."""
