@@ -12,7 +12,7 @@ class Package:
 
     def __init__(self, package_id: str, priority: int, destination: str, weight_kg: float):
         self.package_id = package_id
-        self.priority = priority        # 1 (lowest) – 10 (highest)
+        self.priority = priority        
         self.destination = destination
         self.weight_kg = weight_kg
 
@@ -23,9 +23,7 @@ class Package:
         )
 
 
-# ---------------------------------------------------------------------------
-# MinHeap  (min-distance heap for Dijkstra)
-# ---------------------------------------------------------------------------
+
 
 class MinHeap:
     """
@@ -37,9 +35,7 @@ class MinHeap:
     def __init__(self):
         self._data: list = []
 
-    # ------------------------------------------------------------------
-    # Public interface
-    # ------------------------------------------------------------------
+  
 
     def push(self, item: tuple) -> None:
         """Insert an item and restore heap order."""
@@ -68,10 +64,7 @@ class MinHeap:
     def __len__(self) -> int:
         return len(self._data)
 
-    # ------------------------------------------------------------------
-    # Internal helpers
-    # ------------------------------------------------------------------
-
+  
     def _sift_up(self, idx: int) -> None:
         while idx > 0:
             parent = (idx - 1) // 2
@@ -103,9 +96,7 @@ class MinHeap:
         self._data[i], self._data[j] = self._data[j], self._data[i]
 
 
-# ---------------------------------------------------------------------------
-# MaxHeap  (priority dispatch queue)
-# ---------------------------------------------------------------------------
+
 
 class MaxHeap:
     """
@@ -116,10 +107,7 @@ class MaxHeap:
     def __init__(self):
         self._data: list[Package] = []
 
-    # ------------------------------------------------------------------
-    # Public interface
-    # ------------------------------------------------------------------
-
+    
     def enqueue(self, package: Package) -> None:
         """Add a package and restore heap order."""
         self._data.append(package)
@@ -147,9 +135,7 @@ class MaxHeap:
     def __len__(self) -> int:
         return len(self._data)
 
-    # ------------------------------------------------------------------
-    # Internal helpers
-    # ------------------------------------------------------------------
+  
 
     def _sift_up(self, idx: int) -> None:
         while idx > 0:
